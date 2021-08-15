@@ -14,7 +14,7 @@ const App: FC = () => {
             <Route path='/' exact>
               <Redirect to='/deck' />
             </Route>
-            <Route path={'/deck'}>
+            <Route path='/deck'>
               <Deck />
             </Route>
             <Route path='/absence-manager'>
