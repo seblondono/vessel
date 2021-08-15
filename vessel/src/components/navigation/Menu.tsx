@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 const Menu: FC = () => {
   return (
-    <nav className='h-vessel-nav flex justify-start items-center bg-yellow-500'>
+    <nav className='h-vessel-nav flex justify-start items-center bg-yellow-500' data-testid='vessel-nav'>
       <NavLink
         to='/deck'
         className='h-16 p-1 pl-3 pr-3 flex items-center hover:bg-yellow-600'
