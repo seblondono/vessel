@@ -1,7 +1,10 @@
+export type UserId = number
+export type CrewId = number
+
 export type MemberDto = {
   id: number
-  userId: number
-  crewId: number
+  userId: UserId
+  crewId: CrewId
   name: string
   image: string
 }

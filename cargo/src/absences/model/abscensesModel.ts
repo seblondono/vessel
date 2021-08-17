@@ -1,3 +1,5 @@
+import { CrewId, UserId } from '../../members/model/membersModel'
+
 export enum AbsenceType {
   SICKNESS = 'sickness',
   VACATION = 'vacation'
@@ -5,12 +7,12 @@ export enum AbsenceType {
 
 export type AbsenceDto = {
   id: number
-  userId: number
-  crewId: number
-  admitterId?: number
+  userId: UserId
+  crewId: CrewId
+  admitterId: UserId | null
   admitterNote: string
-  confirmedAt?: string
-  rejectedAt?: string
+  confirmedAt: string | null
+  rejectedAt: string | null
   createdAt: string
   endDate: string
   startDate: string
