@@ -1,5 +1,5 @@
 import assert from 'assert'
 
-it('your tests here', () => {
+it('members tests', () => {
   assert(false)
 })
