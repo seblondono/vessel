@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express, { Application } from 'express'
 import { absences } from './api'
 import { isValue } from './util/typeGuardUtil'
@@ -7,6 +8,7 @@ const port = 5000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
 app.get('/absences', async (_req, res) => {
   const crewAbsences = await absences()
