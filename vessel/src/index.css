@@ -11,6 +11,10 @@
     height: calc(100vh - 64px);
   }
 
+  .top-table-sticky {
+    top: -33px;
+  }
+
   .vessel-route-active {
     @apply bg-yellow-600
   }
