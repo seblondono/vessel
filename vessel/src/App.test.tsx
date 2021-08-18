@@ -1,7 +1,7 @@
 import { fireEvent, getByText, render, screen } from '@testing-library/react'
 import App from './App'
 import { Routes } from './Routes'
-import { renderWithRouter } from './utils/testsUtil'
+import { renderWithRouter } from './util/testsUtil'
 
 test('should render app header', () => {
   render(<App />)
