@@ -1,6 +1,6 @@
 import cors from 'cors'
 import express, { Application } from 'express'
-import { absences } from './api'
+import { absences, members } from './api'
 import { isValue } from './util/typeGuardUtil'
 
 const app: Application = express()
@@ -10,14 +10,21 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-app.get('/absences', async (_req, res) => {
+app.get('/absence', async (_req, res) => {
   const crewAbsences = await absences()
-  return res.status(200).send(crewAbsences)
+  const crewMembers = await members()
+
+  try {
+    const absenceList = crewAbsences.toAbsenceListDto(crewMembers)
+    return res.status(200).send(absenceList)
+  } catch (e) {
+    return res.status(412).send(e.message)
+  }
 })
 
 app.get('/absence/:id', async (req, res) => {
   const crewAbsences = await absences()
-  const absence = crewAbsences.find((it) => it.id === Number(req.params.id))
+  const absence = crewAbsences.getById(Number(req.params.id))
 
   if (!isValue(absence)) {
     return res.status(404).send({

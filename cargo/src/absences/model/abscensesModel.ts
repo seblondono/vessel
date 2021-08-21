@@ -20,7 +20,21 @@ export type AbsenceDto = {
   type: AbsenceType
 }
 
-export type AbsencesResponseDto = {
-  message: string
-  payload: AbsenceDto[]
+export enum AbsenceStatus {
+  REQUESTED = 'REQUESTED',
+  CONFIRMED = 'CONFIRMED',
+  REJECTED = 'REJECTED',
 }
+
+export type AbsenceListItem = {
+  id: number
+  userName: string
+  type: AbsenceType
+  endDate: string
+  startDate: string
+  memberNote?: string
+  admitterNote?: string
+  status: AbsenceStatus
+}
+
+export type AbsenceListDto = AbsenceListItem[]
