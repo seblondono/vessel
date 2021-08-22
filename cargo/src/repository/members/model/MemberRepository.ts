@@ -1,10 +1,10 @@
 import Member from './Member'
-import { MemberDto } from './membersModel'
+import { MemberEntity } from './membersModel'
 
-class Members {
+class MemberRepository {
   public items: Member[]
 
-  constructor(absences: MemberDto[]) {
+  constructor(absences: MemberEntity[]) {
     this.items = absences.map((it) => new Member(it))
   }
 
@@ -13,4 +13,4 @@ class Members {
   }
 }
 
-export default Members
+export default MemberRepository

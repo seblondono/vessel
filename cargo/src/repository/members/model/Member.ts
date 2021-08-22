@@ -1,4 +1,4 @@
-import { CrewId, MemberDto, UserId } from './membersModel'
+import { CrewId, MemberEntity, UserId } from './membersModel'
 
 class Member {
   public id: number
@@ -7,7 +7,7 @@ class Member {
   public name: string
   public image: string
 
-  constructor(member: MemberDto) {
+  constructor(member: MemberEntity) {
     this.id = member.id
     this.userId = member.userId
     this.crewId = member.crewId

@@ -1,8 +1,8 @@
 import assert from 'assert'
-import { absences } from '../api'
+import { absences } from '../../database/absenceDb'
 import { everyItemContainsKey, everyKeyHasValue } from '../../util/testUtil'
 import { isEnumValue, isValue } from '../../util/typeGuardUtil'
-import { AbsenceDto, AbsenceType } from './model/abscensesModel'
+import { AbsenceEntity, AbsenceType } from './model/abscensesModel'
 
 const absenceKeys = [
   'admitterId',
@@ -19,7 +19,7 @@ const absenceKeys = [
   'userId',
 ]
 
-const absenceNotNullableKeys: (keyof AbsenceDto)[] = [
+const absenceNotNullableKeys: (keyof AbsenceEntity)[] = [
   'admitterNote',
   'createdAt',
   'crewId',
@@ -35,13 +35,13 @@ describe('absences', () => {
   describe('every absence', () => {
     describe('should have key', () => {
       absenceKeys.forEach(key => {
-        it(key, () => absences().then(everyItemContainsKey<AbsenceDto>(key)))
+        it(key, () => absences().then(everyItemContainsKey<AbsenceEntity>(key)))
       })
     })
 
     describe('should have key with value', () => {
       absenceNotNullableKeys.forEach(key => {
-        it(key, () => absences().then(everyKeyHasValue<AbsenceDto>(key)))
+        it(key, () => absences().then(everyKeyHasValue<AbsenceEntity>(key)))
       })
     })
 

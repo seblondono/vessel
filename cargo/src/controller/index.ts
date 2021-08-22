@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express, { Application } from 'express'
-import { absences, members } from '../repository/api'
+import { absences } from '../database/absenceDb'
+import { members } from '../database/memberDb'
 import { isValue } from '../util/typeGuardUtil'
 
 const app: Application = express()

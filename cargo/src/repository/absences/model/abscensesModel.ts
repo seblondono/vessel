@@ -5,7 +5,7 @@ export enum AbsenceType {
   VACATION = 'vacation'
 }
 
-export type AbsenceDto = {
+export type AbsenceEntity = {
   id: number
   userId: UserId
   crewId: CrewId
@@ -26,7 +26,7 @@ export enum AbsenceStatus {
   REJECTED = 'REJECTED',
 }
 
-export type AbsenceListItem = {
+export type AbsenceListItemDto = {
   id: number
   userName: string
   type: AbsenceType
@@ -37,4 +37,4 @@ export type AbsenceListItem = {
   status: AbsenceStatus
 }
 
-export type AbsenceListDto = AbsenceListItem[]
+export type AbsenceListDto = AbsenceListItemDto[]

@@ -1,7 +1,7 @@
 import { isValue } from '../../../util/typeGuardUtil'
-import Members from '../../members/model/Members'
+import MemberRepository from '../../members/model/MemberRepository'
 import { CrewId, UserId } from '../../members/model/membersModel'
-import { AbsenceDto, AbsenceListItem, AbsenceStatus, AbsenceType } from './abscensesModel'
+import { AbsenceEntity, AbsenceListItemDto, AbsenceStatus, AbsenceType } from './abscensesModel'
 
 class Absence {
   public id: number
@@ -18,7 +18,7 @@ class Absence {
   public type: AbsenceType
   public status: AbsenceStatus
 
-  constructor(absence: AbsenceDto) {
+  constructor(absence: AbsenceEntity) {
     this.id = absence.id
     this.userId = absence.userId
     this.crewId = absence.crewId
@@ -34,13 +34,13 @@ class Absence {
     this.status = Absence.getStatus(absence)
   }
 
-  static getStatus(absence: AbsenceDto): AbsenceStatus {
+  static getStatus(absence: AbsenceEntity): AbsenceStatus {
     if (isValue(absence.rejectedAt)) return AbsenceStatus.REJECTED
     if (isValue(absence.confirmedAt)) return AbsenceStatus.CONFIRMED
     return AbsenceStatus.REQUESTED
   }
 
-  public toAbsenceListItem(members: Members): AbsenceListItem {
+  public toAbsenceListItemDto(members: MemberRepository): AbsenceListItemDto {
     const userName = members.getById(this.userId)?.name
 
     if (!isValue(userName)) {

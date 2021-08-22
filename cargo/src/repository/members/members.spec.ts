@@ -1,14 +1,14 @@
 import assert from 'assert'
-import { members } from '../api'
+import { members } from '../../database/memberDb'
 import { everyItemContainsKey } from '../../util/testUtil'
-import { MemberDto } from './model/membersModel'
+import { MemberEntity } from './model/membersModel'
 
 const memberKeys = ['id', 'crewId', 'name', 'userId', 'image']
 
 describe('members', () => {
   describe('every member has key', () => {
     memberKeys.forEach(key => {
-      it(key, () => members().then(everyItemContainsKey<MemberDto>(key)))
+      it(key, () => members().then(everyItemContainsKey<MemberEntity>(key)))
     })
   })
 
