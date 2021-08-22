@@ -1,7 +1,7 @@
 import cors from 'cors'
 import express, { Application } from 'express'
-import { absences, members } from './api'
-import { isValue } from './util/typeGuardUtil'
+import { absences, members } from '../repository/api'
+import { isValue } from '../util/typeGuardUtil'
 
 const app: Application = express()
 const port = 5000

@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { absences } from '../api'
-import { everyItemContainsKey, everyKeyHasValue } from '../util/testUtil'
-import { isEnumValue, isValue } from '../util/typeGuardUtil'
+import { everyItemContainsKey, everyKeyHasValue } from '../../util/testUtil'
+import { isEnumValue, isValue } from '../../util/typeGuardUtil'
 import { AbsenceDto, AbsenceType } from './model/abscensesModel'
 
 const absenceKeys = [

@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from 'axios'
-import { AbsenceListDto } from '../../../cargo/src/absences/model/abscensesModel'
+import { AbsenceListDto } from '../../../cargo/src/repository/absences/model/abscensesModel'
 import { API_BASE_URL } from './httpClient'
 
 export default class AbsenceClient {

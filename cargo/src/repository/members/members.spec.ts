@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { members } from '../api'
-import { everyItemContainsKey } from '../util/testUtil'
+import { everyItemContainsKey } from '../../util/testUtil'
 import { MemberDto } from './model/membersModel'
 
 const memberKeys = ['id', 'crewId', 'name', 'userId', 'image']

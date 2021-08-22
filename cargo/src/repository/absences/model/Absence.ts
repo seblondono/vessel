@@ -1,5 +1,5 @@
 import { CrewId, UserId } from '../../members/model/membersModel'
-import { isValue } from '../../util/typeGuardUtil'
+import { isValue } from '../../../util/typeGuardUtil'
 import { AbsenceDto, AbsenceStatus, AbsenceType } from './abscensesModel'
 
 class Absence {

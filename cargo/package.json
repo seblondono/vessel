@@ -2,9 +2,9 @@
   "name": "cargo",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "src/controller/index.ts",
   "scripts": {
-    "start": "ts-node-dev src/index.ts",
+    "start": "ts-node-dev src/controller/index.ts",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.json",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts)\"",
     "lighthouse": "npm run lint && npm run format",

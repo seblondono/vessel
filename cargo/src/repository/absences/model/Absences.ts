@@ -1,5 +1,5 @@
 import Members from '../../members/model/Members'
-import { isValue } from '../../util/typeGuardUtil'
+import { isValue } from '../../../util/typeGuardUtil'
 import { AbsenceDto, AbsenceListDto } from './abscensesModel'
 import Absence from './Absence'
 

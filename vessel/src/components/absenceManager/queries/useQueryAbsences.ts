@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from 'react-query'
-import { AbsenceListDto } from '../../../../../cargo/src/absences/model/abscensesModel'
+import { AbsenceListDto } from '../../../../../cargo/src/repository/absences/model/abscensesModel'
 import httpClient from '../../../network/httpClient'
 
 const useQueryAbsences = (): UseQueryResult<AbsenceListDto> => {
