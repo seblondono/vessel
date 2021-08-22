@@ -1,5 +1,4 @@
 import Members from '../../members/model/Members'
-import { isValue } from '../../../util/typeGuardUtil'
 import { AbsenceDto, AbsenceListDto } from './abscensesModel'
 import Absence from './Absence'
 
@@ -15,24 +14,7 @@ class Absences {
   }
 
   public toAbsenceListDto(members: Members): AbsenceListDto {
-    return this.items.map((it: Absence) => {
-      const userName = members.getById(it.userId)?.name
-
-      if (!isValue(userName)) {
-        throw new Error(`User with id ${it.userId} could not be found.`)
-      }
-
-      return {
-        id: it.id,
-        userName,
-        type: it.type,
-        endDate: it.endDate,
-        startDate: it.startDate,
-        memberNote: it.memberNote,
-        admitterNote: it.admitterNote,
-        status: it.status,
-      }
-    })
+    return this.items.map((it: Absence) => it.toAbsenceListItem(members))
   }
 }
 

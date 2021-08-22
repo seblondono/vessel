@@ -1,6 +1,7 @@
-import { CrewId, UserId } from '../../members/model/membersModel'
 import { isValue } from '../../../util/typeGuardUtil'
-import { AbsenceDto, AbsenceStatus, AbsenceType } from './abscensesModel'
+import Members from '../../members/model/Members'
+import { CrewId, UserId } from '../../members/model/membersModel'
+import { AbsenceDto, AbsenceListItem, AbsenceStatus, AbsenceType } from './abscensesModel'
 
 class Absence {
   public id: number
@@ -37,6 +38,25 @@ class Absence {
     if (isValue(absence.rejectedAt)) return AbsenceStatus.REJECTED
     if (isValue(absence.confirmedAt)) return AbsenceStatus.CONFIRMED
     return AbsenceStatus.REQUESTED
+  }
+
+  public toAbsenceListItem(members: Members): AbsenceListItem {
+    const userName = members.getById(this.userId)?.name
+
+    if (!isValue(userName)) {
+      throw new Error(`User with id ${this.userId} could not be found.`)
+    }
+
+    return {
+      id: this.id,
+      userName,
+      type: this.type,
+      endDate: this.endDate,
+      startDate: this.startDate,
+      memberNote: this.memberNote,
+      admitterNote: this.admitterNote,
+      status: this.status,
+    }
   }
 }
 
