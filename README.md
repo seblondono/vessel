@@ -16,16 +16,16 @@ We decided to implement this feature for our clients and we are calling it the A
 
 ## Product Requirements
 
-- [ ] I want to see a list of absences including the names of the employees.
+- [X] I want to see a list of absences including the names of the employees.
 - [ ] I want to see the first 10 absences, with the ability to paginate.
 - [ ] I want to see a total number of absences.
-- [ ] For each absence I want to see:
-  - [ ] Member name
-  - [ ] Type of absence
-  - [ ] Period
-  - [ ] Member note (when available)
-  - [ ] Status (can be 'Requested', 'Confirmed' or 'Rejected')
-  - [ ] Admitter note (when available)
+- [X] For each absence I want to see:
+  - [X] Member name
+  - [X] Type of absence
+  - [X] Period
+  - [X] Member note (when available)
+  - [X] Status (can be 'Requested', 'Confirmed' or 'Rejected')
+  - [X] Admitter note (when available)
 - [ ] I want to filter absences by type.
 - [ ] I want to filter absences by date.
 - [ ] I want to see a loading state until the list is available.
