@@ -36,5 +36,3 @@ export type AbsenceListItemDto = {
   admitterNote?: string
   status: AbsenceStatus
 }
-
-export type AbsenceListDto = AbsenceListItemDto[]

@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { AbsenceListItemDto } from '../../../../cargo/src/repository/absences/model/abscensesModel'
 import useQueryAbsences from './queries/useQueryAbsences'
 
 const AbsenceManager: FC = () => {
@@ -18,7 +19,7 @@ const AbsenceManager: FC = () => {
         </tr>
         </thead>
         <tbody className='divide-y'>
-        {absences.data?.map((it) => {
+        {absences.data?.entries.map((it: AbsenceListItemDto) => {
           return (
             <tr key={it.id}>
               <td className='p-1'>{it.userName}</td>

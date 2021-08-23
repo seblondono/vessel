@@ -1,8 +1,10 @@
 import cors from 'cors'
-import express, { Application } from 'express'
+import express, { Application, Response } from 'express'
 import { absences } from '../database/absenceDb'
-import { members } from '../database/memberDb'
+import { AbsenceListItemDto } from '../repository/absences/model/abscensesModel'
+import absenceService from '../service/absenceService'
 import { isValue } from '../util/typeGuardUtil'
+import { PaginatedResult } from './model/paginatedResult'
 
 const app: Application = express()
 const port = 5000
@@ -11,15 +13,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-app.get('/absence', async (_req, res) => {
-  const crewAbsences = await absences()
-  const crewMembers = await members()
-
+app.get('/absence', async (req, res: Response<PaginatedResult<AbsenceListItemDto>>) => {
   try {
-    const absenceList = crewAbsences.toAbsenceListDto(crewMembers)
+    const absenceList = await absenceService(req)
     return res.status(200).send(absenceList)
   } catch (e) {
-    return res.status(412).send(e.message)
+    return res.status(404).send(e.message)
   }
 })
 

@@ -1,5 +1,7 @@
+import { PaginatedResult } from '../../../controller/model/paginatedResult'
+import paginateCollection from '../../../util/paginateCollection'
 import MemberRepository from '../../members/model/MemberRepository'
-import { AbsenceEntity, AbsenceListDto } from './abscensesModel'
+import { AbsenceEntity, AbsenceListItemDto } from './abscensesModel'
 import Absence from './Absence'
 
 class AbsenceRepository {
@@ -13,8 +15,8 @@ class AbsenceRepository {
     return this.items.find((it) => it.id === absenceId)
   }
 
-  public toAbsenceListDto(members: MemberRepository): AbsenceListDto {
-    return this.items.map((it: Absence) => it.toAbsenceListItemDto(members))
+  public toPaginatedResult(members: MemberRepository, page: number | undefined, pageSize: number | undefined): PaginatedResult<AbsenceListItemDto> {
+    return paginateCollection(this.items.map((it: Absence) => it.toAbsenceListItemDto(members)), page, pageSize)
   }
 }
 
