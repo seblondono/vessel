@@ -17,8 +17,8 @@ We decided to implement this feature for our clients and we are calling it the A
 ## Product Requirements
 
 - [X] I want to see a list of absences including the names of the employees.
-- [ ] I want to see the first 10 absences, with the ability to paginate.
-- [ ] I want to see a total number of absences.
+- [X] I want to see the first 10 absences, with the ability to paginate.
+- [X] I want to see a total number of absences.
 - [X] For each absence I want to see:
   - [X] Member name
   - [X] Type of absence
