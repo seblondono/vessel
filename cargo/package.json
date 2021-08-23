@@ -2,9 +2,9 @@
   "name": "cargo",
   "version": "1.0.0",
   "description": "",
-  "main": "src/controller/index.ts",
+  "main": "src/controller/absenceController.ts",
   "scripts": {
-    "start": "ts-node-dev src/controller/index.ts",
+    "start": "ts-node-dev src/controller/absenceController.ts",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.json",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts)\"",
     "lighthouse": "npm run lint && npm run format",
