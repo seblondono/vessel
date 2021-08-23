@@ -5,5 +5,5 @@ import { readJsonFile } from '../util/readJsonFile'
 
 const ABSENCES_PATH = path.join(__dirname, './json_files', 'absences.json')
 
-export const absences = (): Promise<AbsenceRepository> => readJsonFile<AbsenceEntity[]>(ABSENCES_PATH)
-  .then((it) => new AbsenceRepository(it))
+export const absenceEntities = (): Promise<AbsenceEntity[]> => readJsonFile<AbsenceEntity[]>(ABSENCES_PATH)
+export const absences = (): Promise<AbsenceRepository> => absenceEntities().then((it) => new AbsenceRepository(it))

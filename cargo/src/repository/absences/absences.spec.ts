@@ -1,10 +1,10 @@
 import assert from 'assert'
-import { absences } from '../../database/absenceDb'
+import { absenceEntities } from '../../database/absenceDb'
 import { everyItemContainsKey, everyKeyHasValue } from '../../util/testUtil'
 import { isEnumValue, isValue } from '../../util/typeGuardUtil'
 import { AbsenceEntity, AbsenceType } from './model/abscensesModel'
 
-const absenceKeys = [
+const absenceEntityKeys = [
   'admitterId',
   'admitterNote',
   'confirmedAt',
@@ -19,7 +19,7 @@ const absenceKeys = [
   'userId',
 ]
 
-const absenceNotNullableKeys: (keyof AbsenceEntity)[] = [
+const absenceEntityNotNullableKeys: (keyof AbsenceEntity)[] = [
   'admitterNote',
   'createdAt',
   'crewId',
@@ -31,27 +31,27 @@ const absenceNotNullableKeys: (keyof AbsenceEntity)[] = [
   'userId',
 ]
 
-describe('absences', () => {
-  describe('every absence', () => {
+describe('absence entities', () => {
+  describe('every absence entity', () => {
     describe('should have key', () => {
-      absenceKeys.forEach(key => {
-        it(key, () => absences().then(everyItemContainsKey<AbsenceEntity>(key)))
+      absenceEntityKeys.forEach(key => {
+        it(key, () => absenceEntities().then(everyItemContainsKey<AbsenceEntity>(key)))
       })
     })
 
     describe('should have key with value', () => {
-      absenceNotNullableKeys.forEach(key => {
-        it(key, () => absences().then(everyKeyHasValue<AbsenceEntity>(key)))
+      absenceEntityNotNullableKeys.forEach(key => {
+        it(key, () => absenceEntities().then(everyKeyHasValue<AbsenceEntity>(key)))
       })
     })
 
     it('should have same length', async () => {
-      const crewAbsences = await absences()
-      assert(crewAbsences.every((absence) => Object.keys(absence).length === absenceKeys.length))
+      const crewAbsences = await absenceEntities()
+      assert(crewAbsences.every((absence) => Object.keys(absence).length === absenceEntityKeys.length))
     })
 
     it('should have one of confirmedAt or rejectedAt', async () => {
-      const crewAbsences = await absences()
+      const crewAbsences = await absenceEntities()
       crewAbsences.forEach((absence) => {
         if (isValue(absence.confirmedAt)) {
           assert(!isValue(absence.rejectedAt))
@@ -62,7 +62,7 @@ describe('absences', () => {
     })
 
     it('should have a valid AbsenceType', async () => {
-      const crewAbsences = await absences()
+      const crewAbsences = await absenceEntities()
       crewAbsences.forEach((absence) => {
         assert(isEnumValue(AbsenceType).exists(absence.type))
       })
