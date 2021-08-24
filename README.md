@@ -28,7 +28,7 @@ We decided to implement this feature for our clients and we are calling it the A
   - [X] Admitter note (when available)
 - [ ] I want to filter absences by type.
 - [ ] I want to filter absences by date.
-- [ ] I want to see a loading state until the list is available.
+- [X] I want to see a loading state until the list is available.
 - [ ] I want to see an error state if the list is unavailable.
 - [ ] I want to see an empty state if there are no results.
 - [ ] (Bonus) I can generate an iCal file and import it into outlook.
