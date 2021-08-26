@@ -11,8 +11,8 @@ const PageSizeSelector: FC<Props> = ({ pageSize, handlePageSizeChange }) => {
       <p>Page Size</p>
       <select className='ml-3 p-1 border' onChange={handlePageSizeChange}>
         <option value={10} selected={pageSize === 10}>10</option>
-        <option value={20} selected={pageSize === 20}>20</option>
         <option value={30} selected={pageSize === 30}>30</option>
+        <option value={50} selected={pageSize === 50}>50</option>
       </select>
     </div>
   )
