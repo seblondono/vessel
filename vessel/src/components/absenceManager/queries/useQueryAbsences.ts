@@ -1,17 +1,19 @@
 import { useQuery, UseQueryResult } from 'react-query'
 import { useLocation } from 'react-router-dom'
 import { PaginatedResult } from '../../../../../cargo/src/controller/model/paginatedResult'
-import { AbsenceListItemDto } from '../../../../../cargo/src/repository/absences/model/abscensesModel'
 import httpClient from '../../../network/httpClient'
 import { isValue } from '../../../util/typeGuardUtil'
+import { AbsenceListItemDto } from '../model/absencesModel'
+import { AbsenceQueryFilterType, TableQueryPaginationType } from '../model/queryFilters'
 
 const useQueryAbsences = (): UseQueryResult<PaginatedResult<AbsenceListItemDto>> => {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
-  const page = queryParams.get('page')
-  const pageSize = queryParams.get('pageSize')
+  const page = queryParams.get(TableQueryPaginationType.PAGE)
+  const pageSize = queryParams.get(TableQueryPaginationType.PAGE_SIZE)
+  const absenceType = queryParams.get(AbsenceQueryFilterType.TYPE)
 
-  return useQuery(['absence', page, pageSize], async () => {
+  return useQuery(['absence', page, pageSize, absenceType], async () => {
       const absences = await httpClient.absenceClient.getAbsences(queryParams)
       return absences.data
     }, {
