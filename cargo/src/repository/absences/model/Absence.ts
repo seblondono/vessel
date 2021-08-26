@@ -58,6 +58,23 @@ class Absence {
       status: this.status,
     }
   }
+
+  public toAbsenceEntity(): AbsenceEntity {
+    return {
+      id: this.id,
+      userId: this.userId,
+      crewId: this.crewId,
+      admitterId: this.admitterId,
+      admitterNote: this.admitterNote,
+      confirmedAt: this.confirmedAt,
+      rejectedAt: this.rejectedAt,
+      createdAt: this.createdAt,
+      endDate: this.endDate,
+      startDate: this.startDate,
+      memberNote: this.memberNote,
+      type: this.type,
+    }
+  }
 }
 
 export default Absence

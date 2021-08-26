@@ -14,12 +14,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 app.get('/absence', async (req, res: Response<PaginatedResult<AbsenceListItemDto>>) => {
-  try {
-    const absenceList = await absenceService(req)
-    return res.status(200).send(absenceList)
-  } catch (e) {
-    return res.status(404).send(e.message)
-  }
+    return absenceService(req, res)
 })
 
 app.get('/absence/:id', async (req, res) => {
