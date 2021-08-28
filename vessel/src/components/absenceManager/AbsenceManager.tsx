@@ -1,8 +1,5 @@
-import { ChangeEvent, FC, useLayoutEffect, useState } from 'react'
-import { Redirect, useHistory, useLocation } from 'react-router-dom'
-import { Routes } from '../../Routes'
-import { isValue } from '../../util/typeGuardUtil'
-import { AbsenceFilterByType, AbsenceFilterType } from './model/absencesModel'
+import { FC } from 'react'
+import { Redirect, useLocation } from 'react-router-dom'
 import { AbsenceQueryFilterType, TableQueryPaginationType } from './model/queryFilters'
 import useQueryAbsences from './queries/useQueryAbsences'
 import PageInformation from './table/PageInformation'
@@ -18,104 +15,36 @@ const AbsenceManager: FC = () => {
   const absences = useQueryAbsences()
   // endregion
 
-  // region table page and page size state
-  const [pageSize, setPageSize] = useState(10)
-  const [page, setPage] = useState(1)
-
-  const handlePageSizeChange = (ev: ChangeEvent<HTMLSelectElement>) => setPageSize(Number(ev.target.value))
-  const handlePreviousPageClick = () => {
-    setPage(old => Math.max(old - 1, 1))
-  }
-  const handleNextPageClick = () => {
-    const totalPages = absences.data?.totalPages
-    setPage(old => Math.min(old + 1, Number(totalPages)))
-  }
-  // endregion
-
-  // region table filters
-  const [absenceTypeFilter, setAbsenceTypeFilter] = useState<AbsenceFilterType>(AbsenceFilterByType.NONE)
-  const handleFilterByAbsenceTypeChange = (ev: ChangeEvent<HTMLSelectElement>) => {
-    setAbsenceTypeFilter(ev.target.value as AbsenceFilterType)
-    setPage(1)
-  }
-
-  const [absenceStartDate, setAbsenceStartDate] = useState('')
-  const handleFilterByAbsenceStartDateChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    setAbsenceStartDate(ev.target.value)
-    setPage(1)
-  }
-
-  const [absenceEndDate, setAbsenceEndDate] = useState('')
-  const handleFilterByAbsenceEndDateChange = (ev: ChangeEvent<HTMLInputElement>) => {
-    setAbsenceEndDate(ev.target.value)
-    setPage(1)
-  }
-  // endregion
-
-  // region handle table search query
+  // region redirect to table with page and pageSize queries
   const location = useLocation()
-  const history = useHistory()
-  const queryParams = new URLSearchParams(location.search)
-  queryParams.set(TableQueryPaginationType.PAGE, String(page))
-  queryParams.set(TableQueryPaginationType.PAGE_SIZE, String(pageSize))
-  if (absenceTypeFilter === AbsenceFilterByType.NONE) {
-    queryParams.delete(AbsenceQueryFilterType.TYPE)
-  } else {
-    queryParams.set(AbsenceQueryFilterType.TYPE, absenceTypeFilter)
-  }
-  if (absenceStartDate === '') {
-    queryParams.delete(AbsenceQueryFilterType.START_DATE)
-  } else {
-    queryParams.set(AbsenceQueryFilterType.START_DATE, absenceStartDate)
-  }
-  if (absenceEndDate === '') {
-    queryParams.delete(AbsenceQueryFilterType.END_DATE)
-  } else {
-    queryParams.set(AbsenceQueryFilterType.END_DATE, absenceEndDate)
-  }
-  const searchQuery = `${Routes.ABSENCE_MANAGER}?${queryParams.toString()}`
-
-  useLayoutEffect(() => {
-    history.push(searchQuery)
-  }, [page, pageSize, absenceTypeFilter, absenceStartDate, absenceEndDate])
 
   if (location.search === '') {
-    return <Redirect to={searchQuery} />
+    const queryParams = new URLSearchParams(location.search)
+    queryParams.set(TableQueryPaginationType.PAGE, '1')
+    queryParams.set(TableQueryPaginationType.PAGE_SIZE, '10')
+
+    return <Redirect to={`${location.pathname}?${queryParams.toString()}`} />
   }
   // endregion
 
   return (
     <div className='h-full overflow-auto p-8'>
       <Filter label='Filter absences by'>
-        <FilterAbsenceType
-          absenceTypeFilter={absenceTypeFilter}
-          handleFilterByAbsenceTypeChange={handleFilterByAbsenceTypeChange}
-        />
+        <FilterAbsenceType />
         <FilterAbsenceByDate
           label='Start date'
-          date={absenceStartDate}
-          handleFilterByAbsenceDateChange={handleFilterByAbsenceStartDateChange}
-          />
+          dateFilterType={AbsenceQueryFilterType.START_DATE}
+        />
         <FilterAbsenceByDate
           label='End date'
-          date={absenceEndDate}
-          handleFilterByAbsenceDateChange={handleFilterByAbsenceEndDateChange}
-          />
+          dateFilterType={AbsenceQueryFilterType.END_DATE}
+        />
       </Filter>
       <section className='flex justify-between items-center'>
-        <PageInformation
-          page={page}
-          pageSize={pageSize}
-          totalEntries={absences.data?.totalEntries}
-        />
+        <PageInformation totalEntries={absences.data?.totalEntries} />
         <div className='flex justify-between items-center'>
-          <PageNavigator
-            page={page}
-            totalPages={absences.data?.totalPages}
-            handleNextPageClick={handleNextPageClick}
-            handlePreviousPageClick={handlePreviousPageClick}
-          />
-          <PageSizeSelector pageSize={pageSize} handlePageSizeChange={handlePageSizeChange} />
+          <PageNavigator totalPages={absences.data?.totalPages} />
+          <PageSizeSelector />
         </div>
       </section>
       <Table

@@ -1,11 +1,25 @@
-import { ChangeEvent, FC } from 'react'
+import { ChangeEvent, FC, useLayoutEffect, useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+import { isValue } from '../../../util/typeGuardUtil'
+import { TableQueryPaginationType } from '../model/queryFilters'
 
-type Props = {
-  pageSize: number
-  handlePageSizeChange: (ev: ChangeEvent<HTMLSelectElement>) => void
-}
+const PageSizeSelector: FC = () => {
+  const history = useHistory()
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
 
-const PageSizeSelector: FC<Props> = ({ pageSize, handlePageSizeChange }) => {
+  const pageSizeFromUrl = queryParams.get(TableQueryPaginationType.PAGE_SIZE)
+  if (!isValue(pageSizeFromUrl) || Number.isNaN(pageSizeFromUrl)) return null
+
+  const [pageSize, setPageSize] = useState(Number(pageSizeFromUrl))
+  const handlePageSizeChange = (ev: ChangeEvent<HTMLSelectElement>) => setPageSize(Number(ev.target.value))
+
+  useLayoutEffect(() => {
+    queryParams.set(TableQueryPaginationType.PAGE, '1')
+    queryParams.set(TableQueryPaginationType.PAGE_SIZE, String(pageSize))
+    history.push(`${location.pathname}?${queryParams.toString()}`)
+  }, [pageSize])
+
   return (
     <div className='p-2 flex items-center'>
       <p>Page Size</p>
