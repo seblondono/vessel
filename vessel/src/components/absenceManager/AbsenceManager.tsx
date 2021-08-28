@@ -1,13 +1,15 @@
 import { ChangeEvent, FC, useLayoutEffect, useState } from 'react'
 import { Redirect, useHistory, useLocation } from 'react-router-dom'
 import { Routes } from '../../Routes'
-import { AbsenceFilterByType, AbsenceType } from './model/absencesModel'
+import { AbsenceFilterByType, AbsenceFilterType } from './model/absencesModel'
 import { AbsenceQueryFilterType, TableQueryPaginationType } from './model/queryFilters'
 import useQueryAbsences from './queries/useQueryAbsences'
 import PageInformation from './table/PageInformation'
 import PageNavigator from './table/PageNavigator'
 import PageSizeSelector from './table/PageSizeSelector'
 import Table from './table/Table'
+import Filter from './tableFilter/Filter'
+import FilterAbsenceType from './tableFilter/FilterAbsenceType'
 
 const AbsenceManager: FC = () => {
   // region fetch data
@@ -29,9 +31,9 @@ const AbsenceManager: FC = () => {
   // endregion
 
   // region table filters
-  const [absenceTypeFilter, setAbsenceTypeFilter] = useState(AbsenceFilterByType.NONE)
+  const [absenceTypeFilter, setAbsenceTypeFilter] = useState<AbsenceFilterType>(AbsenceFilterByType.NONE)
   const handleFilterByAbsenceTypeChange = (ev: ChangeEvent<HTMLSelectElement>) => {
-    setAbsenceTypeFilter(ev.target.value as AbsenceType)
+    setAbsenceTypeFilter(ev.target.value as AbsenceFilterType)
     setPage(1)
   }
   // endregion
@@ -60,29 +62,12 @@ const AbsenceManager: FC = () => {
 
   return (
     <div className='h-full overflow-auto p-8'>
-      <section className='flex items-center'>
-        <p className='mr-4'>Filter absences by</p>
-        <div className='p-2 flex items-center'>
-          <p>Type</p>
-          <select className='ml-3 p-1 border capitalize' onChange={handleFilterByAbsenceTypeChange}>
-            <option
-              value={AbsenceFilterByType.NONE}
-              selected={absenceTypeFilter === AbsenceFilterByType.NONE}>
-              {AbsenceFilterByType.NONE}
-            </option>
-            <option
-              value={AbsenceFilterByType.SICKNESS}
-              selected={absenceTypeFilter === AbsenceFilterByType.SICKNESS}>
-              {AbsenceFilterByType.SICKNESS}
-            </option>
-            <option
-              value={AbsenceFilterByType.VACATION}
-              selected={absenceTypeFilter === AbsenceFilterByType.VACATION}>
-              {AbsenceFilterByType.VACATION}
-            </option>
-          </select>
-        </div>
-      </section>
+      <Filter label='Filter absences by'>
+        <FilterAbsenceType
+          absenceTypeFilter={absenceTypeFilter}
+          handleFilterByAbsenceTypeChange={handleFilterByAbsenceTypeChange}
+        />
+      </Filter>
       <section className='flex justify-between items-center'>
         <PageInformation
           page={page}

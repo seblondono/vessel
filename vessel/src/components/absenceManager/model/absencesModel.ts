@@ -9,6 +9,8 @@ export const AbsenceFilterByType = {
   NONE: 'none',
 }
 
+export type AbsenceFilterType = typeof AbsenceFilterByType[keyof typeof AbsenceFilterByType]
+
 export enum AbsenceStatus {
   REQUESTED = 'REQUESTED',
   CONFIRMED = 'CONFIRMED',
