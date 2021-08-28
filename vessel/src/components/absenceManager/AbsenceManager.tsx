@@ -10,7 +10,7 @@ import PageNavigator from './table/PageNavigator'
 import PageSizeSelector from './table/PageSizeSelector'
 import Table from './table/Table'
 import Filter from './tableFilter/Filter'
-import FilterAbsenceStartDate from './tableFilter/FilterAbsenceStartDate'
+import FilterAbsenceByDate from './tableFilter/FilterAbsenceByDate'
 import FilterAbsenceType from './tableFilter/FilterAbsenceType'
 
 const AbsenceManager: FC = () => {
@@ -39,10 +39,15 @@ const AbsenceManager: FC = () => {
     setPage(1)
   }
 
-  // new Date().toISOString().split('T')[0]
   const [absenceStartDate, setAbsenceStartDate] = useState('')
   const handleFilterByAbsenceStartDateChange = (ev: ChangeEvent<HTMLInputElement>) => {
     setAbsenceStartDate(ev.target.value)
+    setPage(1)
+  }
+
+  const [absenceEndDate, setAbsenceEndDate] = useState('')
+  const handleFilterByAbsenceEndDateChange = (ev: ChangeEvent<HTMLInputElement>) => {
+    setAbsenceEndDate(ev.target.value)
     setPage(1)
   }
   // endregion
@@ -63,11 +68,16 @@ const AbsenceManager: FC = () => {
   } else {
     queryParams.set(AbsenceQueryFilterType.START_DATE, absenceStartDate)
   }
+  if (absenceEndDate === '') {
+    queryParams.delete(AbsenceQueryFilterType.END_DATE)
+  } else {
+    queryParams.set(AbsenceQueryFilterType.END_DATE, absenceEndDate)
+  }
   const searchQuery = `${Routes.ABSENCE_MANAGER}?${queryParams.toString()}`
 
   useLayoutEffect(() => {
     history.push(searchQuery)
-  }, [page, pageSize, absenceTypeFilter, absenceStartDate])
+  }, [page, pageSize, absenceTypeFilter, absenceStartDate, absenceEndDate])
 
   if (location.search === '') {
     return <Redirect to={searchQuery} />
@@ -81,9 +91,15 @@ const AbsenceManager: FC = () => {
           absenceTypeFilter={absenceTypeFilter}
           handleFilterByAbsenceTypeChange={handleFilterByAbsenceTypeChange}
         />
-        <FilterAbsenceStartDate
-          absenceStartDate={absenceStartDate}
-          handleFilterByAbsenceStartDateChange={handleFilterByAbsenceStartDateChange}
+        <FilterAbsenceByDate
+          label='Start date'
+          date={absenceStartDate}
+          handleFilterByAbsenceDateChange={handleFilterByAbsenceStartDateChange}
+          />
+        <FilterAbsenceByDate
+          label='End date'
+          date={absenceEndDate}
+          handleFilterByAbsenceDateChange={handleFilterByAbsenceEndDateChange}
           />
       </Filter>
       <section className='flex justify-between items-center'>

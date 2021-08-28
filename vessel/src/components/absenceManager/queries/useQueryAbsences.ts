@@ -13,8 +13,9 @@ const useQueryAbsences = (): UseQueryResult<PaginatedResult<AbsenceListItemDto>>
   const pageSize = queryParams.get(TableQueryPaginationType.PAGE_SIZE)
   const absenceType = queryParams.get(AbsenceQueryFilterType.TYPE)
   const absenceStartDate = queryParams.get(AbsenceQueryFilterType.START_DATE)
+  const absenceEndDate = queryParams.get(AbsenceQueryFilterType.END_DATE)
 
-  return useQuery(['absence', page, pageSize, absenceType, absenceStartDate], async () => {
+  return useQuery(['absence', page, pageSize, absenceType, absenceStartDate, absenceEndDate], async () => {
       const absences = await httpClient.absenceClient.getAbsences(queryParams)
       return absences.data
     }, {
