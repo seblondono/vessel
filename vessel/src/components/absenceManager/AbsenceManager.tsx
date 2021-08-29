@@ -2,10 +2,11 @@ import { FC } from 'react'
 import { Redirect, useLocation } from 'react-router-dom'
 import { AbsenceQueryFilterType, TableQueryPaginationType } from './model/queryFilters'
 import useQueryAbsences from './queries/useQueryAbsences'
+import AbsencesTable from './table/AbsencesTable'
 import PageInformation from './table/PageInformation'
 import PageNavigator from './table/PageNavigator'
 import PageSizeSelector from './table/PageSizeSelector'
-import Table from './table/Table'
+import TableBody from './table/TableBody'
 import Filter from './tableFilter/Filter'
 import FilterAbsenceByDate from './tableFilter/FilterAbsenceByDate'
 import FilterAbsenceType from './tableFilter/FilterAbsenceType'
@@ -47,10 +48,14 @@ const AbsenceManager: FC = () => {
           <PageSizeSelector />
         </div>
       </section>
-      <Table
-        entries={absences.data?.entries}
-        isLoading={absences.isLoading}
-      />
+      <AbsencesTable>
+        <TableBody
+          entries={absences.data?.entries}
+          isLoading={absences.isLoading}
+          isError={absences.isError}
+          refetch={() => absences.refetch()}
+        />
+      </AbsencesTable>
     </div>
   )
 }
