@@ -21,6 +21,8 @@ const useQueryAbsences = (): UseQueryResult<PaginatedResult<AbsenceListItemDto>>
     }, {
       enabled: isValue(page) && isValue(pageSize),
       keepPreviousData: true,
+      refetchOnWindowFocus: false,
+      retry: 1,
     },
   )
 }
