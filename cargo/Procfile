@@ -1,1 +1,1 @@
-web:ts-node-dev/src/controller/absenceController.ts
+web: npm run start:prod

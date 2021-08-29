@@ -2,9 +2,12 @@
   "name": "cargo",
   "version": "1.0.0",
   "description": "",
-  "main": "src/controller/absenceController.ts",
+  "main": "server.ts",
   "scripts": {
-    "start": "ts-node-dev src/controller/absenceController.ts",
+    "tsc:prod": "tsc -p .",
+    "start:dev": "ts-node-dev ./src/server.ts",
+    "start:prod": "npm run build:prod && node ./build/server.js",
+    "build:prod": "rimraf build && npm run tsc:prod",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.json",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts)\"",
     "lighthouse": "npm run lint && npm run format",
@@ -15,7 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
