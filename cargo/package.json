@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "tsc": "tsc",
+    "tsc": "./node_modules/typescript/bin/tsc",
     "postinstall": "npm run tsc",
     "tsc:prod": "npm run tsc -- -p .",
     "start:dev": "ts-node-dev ./src/server.ts",
