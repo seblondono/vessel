@@ -1,0 +1,20 @@
+{
+  "name": "vessel",
+  "version": "1.0.0",
+  "description": "Vessel",
+  "main": "index.js",
+  "scripts": {
+    "start:cargo:prod": "cd cargo && npm run start:prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seblondono/vessel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seblondono/vessel/issues"
+  },
+  "homepage": "https://github.com/seblondono/vessel#readme"
+}
