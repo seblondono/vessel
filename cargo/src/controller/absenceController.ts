@@ -7,7 +7,7 @@ import { isValue } from '../util/typeGuardUtil'
 import { PaginatedResult } from './model/paginatedResult'
 
 const app: Application = express()
-const port = 5000
+const port = process.env.PORT || 5000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
