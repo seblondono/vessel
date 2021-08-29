@@ -6,7 +6,7 @@
   "scripts": {
     "tsc:prod": "tsc -p .",
     "start:dev": "ts-node-dev ./src/server.ts",
-    "start:prod": "npm run build:prod && node ./build/server.js",
+    "start:prod": "npm run build:prod && node ./build/src/server.js",
     "build:prod": "rimraf build && npm run tsc:prod",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.json",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts)\"",
