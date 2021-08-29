@@ -23,15 +23,19 @@ class AbsenceRepository {
   }
 
   public applyFilters(filters: Partial<Record<AbsenceQueryFilterType, any>>): AbsenceRepository {
-    return new AbsenceRepository(this.items.map((it) => it.toAbsenceEntity()).filter((it: AbsenceEntity) => {
-      for (const key in filters) {
-        if (!Object.prototype.hasOwnProperty.call(
-          it, key) || it[key as keyof AbsenceEntity] != filters[key as AbsenceQueryFilterType]) {
+    let filteredItems: AbsenceEntity[] = this.items.map((it) => it.toAbsenceEntity())
+    for (const key in filters) {
+      filteredItems = filteredItems.filter((it: AbsenceEntity) => {
+        if (
+          !Object.prototype.hasOwnProperty.call(it, key)
+          || it[key as keyof AbsenceEntity] != filters[key as AbsenceQueryFilterType]
+        ) {
           return false
         }
         return true
-      }
-    }))
+      })
+    }
+    return new AbsenceRepository(filteredItems)
   }
 }
 
