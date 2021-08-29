@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "tsc:prod": "tsc -p .",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc",
+    "tsc:prod": "npm run tsc -- -p .",
     "start:dev": "ts-node-dev ./src/server.ts",
     "start:prod": "npm run build:prod && node ./build/src/server.js",
     "build:prod": "rimraf build && npm run tsc:prod",
