@@ -4,7 +4,7 @@
   "description": "Vessel",
   "main": "index.js",
   "scripts": {
-    "start:cargo:prod": "cd cargo && npm run start:prod"
+    "start:cargo:prod": "npm run start:prod"
   },
   "repository": {
     "type": "git",
