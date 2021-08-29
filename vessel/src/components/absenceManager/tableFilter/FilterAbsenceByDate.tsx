@@ -17,13 +17,14 @@ const FilterAbsenceByDate: FC<Props> = ({ label, dateFilterType }) => {
   const handleFilterByAbsenceStartDateChange = (ev: ChangeEvent<HTMLInputElement>) => {
     setDate(ev.target.value)
   }
+  const validYearRegex = new RegExp('^[1-9]\\d{3}$')
 
   useLayoutEffect(() => {
     queryParams.set(TableQueryPaginationType.PAGE, '1')
 
     if (date === '') {
       queryParams.delete(dateFilterType)
-    } else {
+    } else if (validYearRegex.test(date.split('-')[0])) {
       queryParams.set(dateFilterType, date)
     }
 
@@ -33,8 +34,13 @@ const FilterAbsenceByDate: FC<Props> = ({ label, dateFilterType }) => {
   return (
     <div className='p-2 flex items-center'>
       <label htmlFor={label}>{label}</label>
-      <input className='ml-3 p-1 border' type='date' id={label} name={label} value={date}
-             onChange={handleFilterByAbsenceStartDateChange} />
+      <input
+        className='ml-3 p-1 border'
+        type='date'
+        id={label}
+        name={label}
+        value={date}
+        onChange={handleFilterByAbsenceStartDateChange} />
     </div>
   )
 }
