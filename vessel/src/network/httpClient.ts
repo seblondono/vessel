@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import AbsenceClient from './absenceClient'
 
-export const API_BASE_URL = 'http://localhost:5000'
 const defaultAxiosRequestConfig: AxiosRequestConfig = {
   ...axios.defaults,
 }

@@ -24,8 +24,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "REACT_APP_ENVIRONMENT=LOCAL craco start",
+    "build": "REACT_APP_ENVIRONMENT=PRODUCTION craco build",
     "test": "craco test",
     "lint": "eslint --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx,.json",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts|tsx)\"",
